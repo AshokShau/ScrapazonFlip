@@ -2,7 +2,6 @@ package scraper
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 	"time"
 
@@ -42,12 +41,8 @@ func NewExtractMeesho(url string) (*ExtractMeesho, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-			fmt.Println(err)
-		}
-	}(resp.Body)
+
+	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("failed to fetch the URL: %d", resp.StatusCode)
@@ -79,14 +74,22 @@ func (m *ExtractMeesho) GetReviewCount() string {
 }
 
 func (m *ExtractMeesho) IsAvailable() bool {
-	return true // TODO
+	found := false
+	m.Doc.Find("span[font-size='18px'][font-weight='demi'][color='#ffffff']").Each(func(i int, s *goquery.Selection) {
+		if s.Text() == "Buy Now" {
+			found = true
+		}
+	})
+	return found
 }
 
 func (m *ExtractMeesho) GetImages() []string {
 	var images []string
 	m.Doc.Find("img[alt][fetchpriority='high']").Each(func(i int, s *goquery.Selection) {
-		src, _ := s.Attr("src")
-		images = append(images, src)
+		src, exists := s.Attr("src")
+		if exists {
+			images = append(images, src)
+		}
 
 	})
 	return images

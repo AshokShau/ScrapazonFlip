@@ -45,7 +45,7 @@ Images: [flipkart_image1.jpg flipkart_image2.jpg]
 Meesho Product Details:
 Title: Example Meesho Product Title
 Price: ₹4,999
-Rating: 4.05.05.0
+Rating: 4.05
 Review Count: 20069 Ratings, 6969 Reviews
 Images: [meesho_image1.jpg]
 ```
@@ -76,6 +76,7 @@ Images: [meesho_image1.jpg]
 - `GetPrice() string`: Returns the product price.
 - `GetRating() string`: Returns the product rating.
 - `GetReviewCount() string`: Returns the number of reviews.
+- `IsAvailable() bool`: Returns whether the product is available for purchase.
 - `GetImages() []string`: Returns a list of product image URLs.
 
 ## License
