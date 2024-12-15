@@ -38,4 +38,19 @@ func main() {
 	fmt.Println("Rating:", flipkartScraper.GetRating())
 	fmt.Println("Available:", flipkartScraper.IsAvailable())
 	fmt.Println("Images:", flipkartScraper.GetImages(500, 500, 100))
+
+	// Example for Meesho product scraping
+	meeshoURL := "https://www.meesho.com/s/p/5vdfxi?utm_source=s_cc"
+	meeshoScraper, err := scraper.NewExtractMeesho(meeshoURL)
+	if err != nil {
+		log.Fatalf("Error initializing Meesho scraper: %v", err)
+	}
+
+	fmt.Println("\nMeesho Product Details:")
+	fmt.Println("Title:", meeshoScraper.GetTitle())
+	fmt.Println("Price:", meeshoScraper.GetPrice())
+	fmt.Println("Rating:", meeshoScraper.GetRating())
+	fmt.Println("Review Count:", meeshoScraper.GetReviewCount())
+	fmt.Println("Available:", meeshoScraper.IsAvailable())
+	fmt.Println("Images:", meeshoScraper.GetImages())
 }
