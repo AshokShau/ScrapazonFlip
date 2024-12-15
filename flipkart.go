@@ -25,7 +25,7 @@ var headers = map[string]string{
 	"sec-fetch-mode":            "navigate",
 	"sec-fetch-user":            "?1",
 	"sec-fetch-dest":            "document",
-	"referer":                   "https://www.amazon.com/",
+	"referer":                   "https://www.google.com/",
 	"accept-language":           "en-GB,en-US;q=0.9,en;q=0.8",
 }
 
