@@ -25,7 +25,7 @@ var headers = map[string]string{
 	"sec-fetch-mode":            "navigate",
 	"sec-fetch-user":            "?1",
 	"sec-fetch-dest":            "document",
-	"referer":                   "https://www.amazon.com/",
+	"referer":                   "https://www.google.com/",
 	"accept-language":           "en-GB,en-US;q=0.9,en;q=0.8",
 }
 
@@ -73,6 +73,13 @@ func (e *ExtractFlipkart) GetPrice() string {
 	if price == "" {
 		price = e.soup.Find("#container > div > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(4) > div > div > div:nth-child(1)").Text()
 	}
+
+	if strings.Contains(price, "EMI") {
+		price = e.soup.Find(`#container > div > div._39kFie.N3De93.JxFEK3._48O0EI > div.DOjaWF.YJG4Cf > div.DOjaWF.gdgoEp.col-8-12 > div:nth-child(2) > div > div.x\+7QT1 > div.UOCQB1 > div > div.Nx9bqj.CxhGGd`).Text()
+
+		return price
+	}
+
 	return strings.ReplaceAll(strings.ReplaceAll(strings.TrimSpace(price), "₹", ""), ",", "")
 }
 
